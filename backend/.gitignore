@@ -1,0 +1,25 @@
+# Firebase service accounts (CRITICAL - NEVER COMMIT)
+firebase-service-account.json
+*firebase-service-account*.json
+*firebase-adminsdk*.json
+runroutes-*.json
+*-firebase-adminsdk-*.json
+
+# Database files
+*.sqlite
+*.db
+runroutes.db
+database.sqlite
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+security.log
+
+# Node modules
+node_modules/
