@@ -178,21 +178,6 @@ The frontend will run on `http://localhost:3000`
 5. Restrict the API key to your domain (for production)
 6. Add the API key to your `.env` files
 
-## 🐳 Docker Setup
-
-### Using Docker Compose
-
-```bash
-# Build and start all services
-docker-compose up --build
-
-# Run in detached mode
-docker-compose up -d
-
-# Stop services
-docker-compose down
-```
-
 The application will be available at:
 - Frontend: `http://localhost:3000`
 - Backend: `http://localhost:5000`
@@ -360,12 +345,10 @@ RunRoutes/
 - [QUICKSTART.md](./QUICKSTART.md) - Fast setup guide
 - [API.md](./API.md) - Basic API reference
 
-### Comprehensive Documentation
-- [User Guide](./docs/USER_GUIDE.md) - Complete user manual with tutorials
+### Documentation
 - [API Documentation](./docs/API_DOCUMENTATION.md) - Full API reference with examples
 - [Architecture](./docs/ARCHITECTURE.md) - System design and technical details
 - [Troubleshooting](./docs/TROUBLESHOOTING.md) - Common issues and solutions
-- [Documentation Index](./docs/DOCUMENTATION_INDEX.md) - Complete documentation overview
 
 
 ---
