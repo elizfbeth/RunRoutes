@@ -21,7 +21,6 @@ A comprehensive full-stack web application that helps users discover, generate, 
 - Tailwind CSS for styling
 - Google Maps API integration
 - Firebase-based authentication
-- Dockerized deployment
 - Unit tests for frontend and backend
 
 ## 🛠️ Tech Stack
@@ -48,18 +47,12 @@ A comprehensive full-stack web application that helps users discover, generate, 
 - **Supertest** for API testing
 - **Vitest** for frontend testing
 
-### Deployment
-- **Docker** for containerization
-- **Render/Railway** for backend deployment
-- **Vercel/Netlify** for frontend deployment
-
 ## 📋 Prerequisites
 
 Before you begin, ensure you have the following installed:
 - Node.js (v18 or higher)
 - npm or yarn
 - PostgreSQL (or use Supabase free tier)
-- Docker (optional, for containerized deployment)
 - Google Maps API key
 
 ## 🔧 Setup Instructions
@@ -175,8 +168,7 @@ The frontend will run on `http://localhost:3000`
    - Directions API
    - Elevation API
 4. Create credentials (API Key)
-5. Restrict the API key to your domain (for production)
-6. Add the API key to your `.env` files
+5. Add the API key to your `.env` files
 
 The application will be available at:
 - Frontend: `http://localhost:3000`
@@ -284,8 +276,7 @@ RunRoutes/
 │   │   ├── validation.js
 │   │   └── userHelper.js
 │   ├── server.js
-│   ├── package.json
-│   └── Dockerfile
+│   └── package.json
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
@@ -310,9 +301,7 @@ RunRoutes/
 │   │   ├── main.js
 │   │   └── index.css
 │   ├── package.json
-│   ├── vite.config.js
-│   └── Dockerfile
-├── docker-compose.yml
+│   └── vite.config.js
 ├── .gitignore
 └── README.md
 ```
@@ -348,6 +337,7 @@ RunRoutes/
 ### Documentation
 - [API Documentation](./docs/API_DOCUMENTATION.md) - Full API reference with examples
 - [Architecture](./docs/ARCHITECTURE.md) - System design and technical details
+- [Route Generation Logic](./docs/ROUTE_GENERATION.md) - Deep dive into route generation algorithm
 - [Troubleshooting](./docs/TROUBLESHOOTING.md) - Common issues and solutions
 
 

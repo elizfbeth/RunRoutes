@@ -13,7 +13,6 @@ This document provides an overview of the RunRoutes application architecture, in
 7. [External Services](#external-services)
 8. [Security Architecture](#security-architecture)
 9. [Performance Optimizations](#performance-optimizations)
-10. [Deployment Architecture](#deployment-architecture)
 
 ---
 
@@ -39,10 +38,8 @@ RunRoutes is a full-stack web application built with a client-server architectur
 - **External APIs**: Google Maps API (Directions, Elevation)
 
 **Infrastructure:**
-- **Hosting**: Vercel (frontend), Railway/Render (backend)
 - **Database**: Supabase (managed PostgreSQL)
 - **Authentication**: Firebase
-- **CI/CD**: GitHub Actions
 
 ---
 
@@ -464,7 +461,7 @@ Retry original request with new token
 - Backend: Firebase Admin SDK (token verification only)
 
 **Why Firebase?**
-- Production-ready auth system
+- Complete authentication system
 - Built-in security (rate limiting, brute force protection)
 - OAuth providers handled automatically
 - No need to store passwords
@@ -505,7 +502,7 @@ Retry original request with new token
 Multiple layers of security:
 
 **Layer 1: Network**
-- HTTPS only (production)
+- HTTPS recommended
 - CORS restrictions
 
 **Layer 2: Rate Limiting**
@@ -563,8 +560,8 @@ modifyLimiter: 30 requests per 15 minutes
 
 **Firebase service account:**
 - `.gitignore` rules prevent commits
-- Loaded from environment variables in production
-- Local file only for development
+- Loaded from environment variables
+- Stored securely in `.env` files
 
 ---
 
@@ -637,68 +634,6 @@ app.use(compression());
 
 ---
 
-## Deployment Architecture
-
-### Production Environment
-
-```
-┌──────────────────────────────────────────────────────────┐
-│                    Client Browser                         │
-└──────────────┬───────────────────────────┬───────────────┘
-               │                           │
-               │ HTTPS                     │ HTTPS
-               │                           │
-        ┌──────▼──────────┐        ┌──────▼──────────┐
-        │   Vercel CDN    │        │  Railway/Render  │
-        │   (Frontend)    │        │    (Backend)     │
-        │  - Static files │        │  - Node.js app   │
-        │  - Edge network │        │  - API endpoints │
-        └─────────────────┘        └──────┬───────────┘
-                                          │
-                        ┌─────────────────┼─────────────────┐
-                        │                 │                 │
-                 ┌──────▼──────┐  ┌──────▼──────┐  ┌──────▼──────┐
-                 │  Supabase   │  │  Firebase   │  │ Google Maps │
-                 │ (PostgreSQL)│  │    Auth     │  │     API     │
-                 └─────────────┘  └─────────────┘  └─────────────┘
-```
-
-### CI/CD Pipeline (GitHub Actions)
-
-```
-Developer pushes to main
-    ↓
-GitHub Actions triggered
-    ↓
-[Install dependencies]
-    ↓
-[Run linters]
-    ↓
-[Run backend tests with coverage]
-    ↓
-[Run frontend tests]
-    ↓
-[Security audit (npm audit)]
-    ↓
-[All checks pass?]
-    ├─ Yes: Deploy to production
-    └─ No: Fail build, notify developer
-```
-
-### Environment Configuration
-
-**Development:**
-- Frontend: http://localhost:3000
-- Backend: http://localhost:5001
-- Database: SQLite or local PostgreSQL
-
-**Production:**
-- Frontend: https://runroutes.vercel.app
-- Backend: https://api.runroutes.com
-- Database: Supabase PostgreSQL
-
----
-
 ## Design Decisions
 
 ### Why Vue.js over React?
@@ -717,7 +652,6 @@ GitHub Actions triggered
 
 ### Why Firebase Auth over JWT?
 
-- Production-ready out of the box
 - Built-in security features
 - OAuth providers included
 - No need to manage password hashing
@@ -775,5 +709,5 @@ GitHub Actions triggered
 
 ---
 
-This architecture provides a solid foundation for a scalable, secure, and maintainable application while remaining simple enough for rapid development and deployment.
+This architecture provides a solid foundation for a scalable, secure, and maintainable application while remaining simple enough for rapid development.
 

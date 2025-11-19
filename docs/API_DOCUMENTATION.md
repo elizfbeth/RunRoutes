@@ -2,8 +2,7 @@
 
 ## Base URL
 ```
-Development: http://localhost:5001/api
-Production: https://your-domain.com/api
+http://localhost:5001/api
 ```
 
 ## Authentication

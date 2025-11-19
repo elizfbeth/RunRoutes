@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-Common issues and their solutions for RunRoutes development and deployment.
+Common issues and their solutions for RunRoutes development.
 
 ## Table of Contents
 
@@ -11,7 +11,6 @@ Common issues and their solutions for RunRoutes development and deployment.
 5. [Google Maps Issues](#google-maps-issues)
 6. [Frontend Issues](#frontend-issues)
 7. [API Issues](#api-issues)
-8. [Deployment Issues](#deployment-issues)
 
 ---
 
@@ -481,17 +480,8 @@ server: {
 **Solution:**
 ```javascript
 // This is expected in development with Vite
-// No fix needed - works in production
-
-// For production deployment:
-// Configure server for SPA (single page app)
-
-// Vercel: Add vercel.json
-{
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
+// The frontend dev server handles routing automatically
+// No fix needed in development mode
 ```
 
 ---
@@ -541,8 +531,6 @@ await authStore.logout();
 # Or increase limits temporarily in development
 # backend/middleware/rateLimiter.js:
 max: 1000, // Increase from 100
-
-# Note: Don't deploy with high limits!
 ```
 
 ---
@@ -564,106 +552,6 @@ app.use(cors({
 }));
 
 // Restart backend server
-```
-
----
-
-## Deployment Issues
-
-### Frontend build fails
-
-**Symptom:**
-```
-npm run build
-ERROR: Build failed
-```
-
-**Solution:**
-```bash
-# Check for TypeScript/ESLint errors
-npm run lint
-
-# Fix import errors
-# Remove unused imports
-# Fix component naming
-
-# Check environment variables
-# Ensure all VITE_* variables are set in production
-
-# Try clean build
-rm -rf node_modules dist
-npm install
-npm run build
-```
-
----
-
-### Backend deployment: Module not found
-
-**Symptom:**
-```
-Error: Cannot find module 'express'
-```
-
-**Solution:**
-```bash
-# Ensure package.json has all dependencies
-# Not devDependencies for production modules
-
-# Check start script
-# package.json:
-"scripts": {
-  "start": "node server.js"  # Not npm run dev
-}
-
-# Verify NODE_ENV=production
-```
-
----
-
-### Environment variables not working in production
-
-**Symptom:**
-- Works locally
-- Fails in production with "undefined"
-
-**Solution:**
-```bash
-# Frontend (Vercel):
-# Dashboard > Settings > Environment Variables
-# Add all VITE_* variables
-
-# Backend (Railway/Render):
-# Dashboard > Environment
-# Add all variables from .env
-
-# Don't use .env files in production
-# Use platform environment variable settings
-```
-
----
-
-### Database connection fails in production
-
-**Symptom:**
-```
-Error: Connection terminated unexpectedly
-```
-
-**Solution:**
-```bash
-# Check Supabase connection string
-# Use "pooling" connection string, not direct
-
-# Correct format:
-postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:6543/postgres?pgbouncer=true
-
-# Verify SSL settings if required:
-DATABASE_URL=postgresql://...?ssl=true
-
-# Check IP allowlist in Supabase
-# Settings > Database > Connection pooling
-# Allow connections from your backend host
 ```
 
 ---
@@ -692,17 +580,9 @@ api.interceptors.request.use(req => {
 
 ### Check Logs
 
-**Development:**
 ```bash
-# Backend console
+# Backend console - check terminal where server is running
 # Frontend browser console (F12)
-```
-
-**Production:**
-```bash
-# Vercel: Dashboard > Deployments > View Function Logs
-# Railway: Dashboard > Deployments > View Logs
-# Render: Dashboard > Logs
 ```
 
 ### Report Issues
